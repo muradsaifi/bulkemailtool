@@ -27,6 +27,9 @@ class BulkemailServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/views', 'bulkemailtool');
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
 
+        $this->publishes([
+            __DIR__.'/config/bulk_email.php' => config_path('bulk_email.php'),
+        ]);
 
     }
 }

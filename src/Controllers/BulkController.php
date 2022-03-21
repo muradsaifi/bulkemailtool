@@ -10,6 +10,7 @@ use Muradsaifi\Bulkemailtool\Mail\BulkEmailToolTemplate;
 class BulkController extends Controller
 {
     public function send(){
+
         return view('bulkemailtool::send');
     }
 
@@ -37,9 +38,11 @@ class BulkController extends Controller
 
         // dd($email_list_validated);
 
+        $seconds = 3;
         foreach($email_list_validated as $email){
 
-            Mail::to(str_replace(' ', '', $email))->queue(new BulkEmailToolTemplate($request->subject, $request->message));
+            Mail::to(str_replace(' ', '', $email))->later($seconds, new BulkEmailToolTemplate($request->subject, $request->message));
+            $seconds += 3;
         }
 
          //insert to database
@@ -60,6 +63,11 @@ class BulkController extends Controller
         return view('bulkemailtool::sent', compact('bulkemailtool'));
     }
 
+
+    public function view($id){
+        $email = Bulkemailtool::findOrFail($id);
+        return view('bulkemailtool::view', compact('email'));
+    }
 
 
 }

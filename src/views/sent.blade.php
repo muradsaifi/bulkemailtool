@@ -43,9 +43,11 @@
                         @foreach ($bulkemailtool as $list)
                             <tr>
                                 <th scope="row">{{ $list->created_at->diffForHumans() }}</th>
-                                <td>{{ $list->subject }}</td>
-                                <td>{{ $list->message }}</td>
-                                <td>#</td>
+                                <td>
+                                    <a href="{{route('bulk_email_view', $list->id)}}">{{ $list->subject }}</a>
+                                </td>
+                                <td>{{ substr($list->message, 0, 160) }}..</td>
+                                <td>{{ count($list->email_list) }}</td>
                             </tr>
                         @endforeach
                     </tbody>

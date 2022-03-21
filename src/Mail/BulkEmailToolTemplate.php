@@ -32,7 +32,7 @@ class BulkEmailToolTemplate extends Mailable
      */
     public function build()
     {
-        return $this->from('no_reply@instabusinesspay.com', 'InstaBusinessPay.com')
+        return $this->from(config('bulk_email.from_email'), config('bulk_email.from_name'))
                     ->subject($this->subject)
                     ->html($this->message);
     }
